@@ -1,0 +1,5 @@
+Link of the article:
+https://blog.rocketseat.com.br/nodejs-express-sequelize/
+
+sequelize doc:
+http://docs.sequelizejs.com/manual/usage.html
