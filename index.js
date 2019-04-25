@@ -5,6 +5,7 @@ const { User, Sale } = require('./app/models');
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 //User.create({ name: 'Claudio', email: 'claudio@rocketseat.com.br', password: '123456' });
 
