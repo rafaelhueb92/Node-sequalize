@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { User } = require('./app/models');
+const { User, Sale } = require('./app/models');
 
 const app = express();
 
@@ -14,18 +14,32 @@ app.get('/', (req, res) => {
 
 app.get('/users', async (req, res) => {
   console.log('Método GET');
-  const users = await User.findAll();
+  Sale.hasMany(User, {foreignKey: 'userId'})
+  User.belongsTo(Sale, {foreignKey: 'userId'})
+  const users = await User.findAll({where:{}, include: [Sale]});
   console.log(users)
   res.json({
     response: "Ok",
     message: "Método GET",
     data: users
-  })
+  }).catch( (reason => res.json({
+    response:"Error",
+    message:reason
+  }))
+
+  )
 }); //Listar todos
 
-app.post('/register', async (req, res) => {
+app.post('/users', async (req, res) => {
+  console.log(req.body)
   const user = await User.create(req.body);
   res.json(user);
+});
+
+app.post('/Sale', async (req, res) => {
+  console.log(req.body)
+  const Sales = await Sale.create(req.body);
+  res.json(Sales);
 });
 
 app.get('/users/:id', (req, res) => { console.log('Método GET') }); //Buscar
